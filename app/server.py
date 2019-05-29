@@ -15,6 +15,7 @@ export_root_name = 'vinchuca'
 
 classes = ['vinchucas','otros']
 path = Path(__file__).parent
+path_model = path / 'models'
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
@@ -31,7 +32,7 @@ async def download_file(url, dest):
 
 
 async def setup_learner():
-    await download_file(export_file_url, path / export_file_name)
+    await download_file(export_file_url, path_model / export_file_name)
     try:
         data2 = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(),
                                                    size=224).normalize(imagenet_stats)
