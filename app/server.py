@@ -10,7 +10,8 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
 export_file_url = 'https://drive.google.com/uc?export=download&id=1Rp2-dj5qZJD8VXfN8PgLcnPDc_cd8F3b'
-export_file_name = 'vinchuca'
+export_file_name = 'vinchuca.pth'
+export_root_name = 'vinchuca'
 
 classes = ['vinchucas','otros']
 path = Path(__file__).parent
@@ -30,7 +31,7 @@ async def download_file(url, dest):
 
 
 async def setup_learner():
-    await download_file(export_file_url, path / export_file_name)
+    await download_file(export_file_url, path / export_root_name)
     try:
         data2 = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(),
                                                    size=224).normalize(imagenet_stats)
