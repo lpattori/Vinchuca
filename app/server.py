@@ -13,7 +13,7 @@ export_file_url = 'https://drive.google.com/uc?export=download&id=1Rp2-dj5qZJD8V
 export_file_name = 'vinchuca.pth'
 export_root_name = 'vinchuca'
 
-classes = ['vinchucas','otros']
+classes = ['No vinchuca','Vinchuca']
 path = Path(__file__).parent
 path_model = path / 'models'
 
