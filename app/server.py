@@ -10,7 +10,7 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
 export_file_url = 'https://drive.google.com/uc?export=download&id=1Rp2-dj5qZJD8VXfN8PgLcnPDc_cd8F3b'
-export_file_name = 'vinchuca.pth'
+export_file_name = 'vinchuca'
 
 classes = ['vinchucas','otros']
 path = Path(__file__).parent
