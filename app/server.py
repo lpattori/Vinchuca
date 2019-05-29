@@ -36,7 +36,7 @@ async def setup_learner():
         data2 = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(),
                                                    size=224).normalize(imagenet_stats)
         learn = create_cnn(data2, models.resnet34)
-        learn.load(path / export_root_name)
+        learn.load(export_root_name)
 #       learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
