@@ -1,15 +1,15 @@
-# Starter for deploying [fast.ai](https://www.fast.ai) models on [Render](https://render.com)
+# Implemetación de un modelo para reconocimiento de Vinchucas con [fast.ai](https://www.fast.ai) en [Render](https://render.com)
 
-Este repo se puede usar como punto de arranque para deploy [fast.ai](https://github.com/fastai/fastai) models on Render.
+Este repo se basa en el modelo [fast.ai](https://github.com/fastai/fastai) para Render.
 
-The sample app described here is up at https://fastai-v3.onrender.com. Test it out with bear images!
+Esta aplicación de prueba se encuetra en: https://vinchuca.onrender.com. ¡Pruebela con sus imágenes!
 
-You can test your changes locally by installing Docker and using the following command:
+Se pueden testear los cambios localmente instalando Docker y usando el comando:
 
 ```
-docker build -t fastai-v3 . && docker run --rm -it -p 5000:5000 fastai-v3
+docker build -t vinchuca . && docker run --rm -it -p 5000:5000 vinchuca
 ```
 
-The guide for production deployment to Render is at https://course.fast.ai/deployment_render.html.
+La guía para la implementación en producción en Render se encuentra en https://course.fast.ai/deployment_render.html.
 
-Please use [Render's fast.ai forum thread](https://forums.fast.ai/t/deployment-platform-render/33953) for questions and support.
+Por favor usar [el thread de Render en el forum de fast.ai](https://forums.fast.ai/t/deployment-platform-render/33953) para preguntas y soporte.
