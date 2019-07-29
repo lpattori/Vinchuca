@@ -9,9 +9,15 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1Rp2-dj5qZJD8VXfN8PgLcnPDc_cd8F3b'
-export_file_name = 'vinchuca.pth'
+export_file_url = ('https://onedrive.live.com/download?'
+                   'cid=27B3CFFF6EE897C2&resid=27B3CFFF6EE897C2%2119427&authkey=AOCpzm2XOxwezP0')
+export_file_name = 'vinchuca.pkl'
 export_root_name = 'vinchuca'
+
+export_file_url_ant = ('https://onedrive.live.com/download?'
+                       'cid=27B3CFFF6EE897C2&resid=27B3CFFF6EE897C2%2119429&authkey=AD_G8RzdMUV9l_w')
+export_file_name_ant = 'anterior.pkl'
+export_root_name_ant = 'anterior'
 
 classes = ['No vinchuca','Vinchuca']
 path = Path(__file__).parent
@@ -33,13 +39,11 @@ async def download_file(url, dest):
 
 async def setup_learner():
     await download_file(export_file_url, path_model / export_file_name)
+    await download_file(export_file_url_ant, path_model / export_file_name_ant)
     try:
-        data2 = ImageDataBunch.single_from_classes(path, classes, tfms=get_transforms(),
-                                                   size=224).normalize(imagenet_stats)
-        learn = create_cnn(data2, models.resnet34)
-        learn.load(export_root_name)
-#       learn = load_learner(path, export_file_name)
-        return learn
+        learn = load_learner(path_model, export_file_name)
+        learn_ant = load_learner(path_model, export_file_name_ant)
+        return learn, learn_ant
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
             print(e)
@@ -51,7 +55,7 @@ async def setup_learner():
 
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
-learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+learn, learn_ant = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
 
 
@@ -66,8 +70,11 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    pred_clase, pred_idx, salida = learn.predict(img)
+    pred_clase_ant, pred_idx_ant, salida_ant = learn_ant.predict(img)
+    prediccion = "%s, %.2f %% \n" % (pred_clase, salida[pred_idx] * 100)
+    predi_ant =  "%s, %.2f %% \n" % (pred_clase_ant, salida_ant[pred_idx_ant] * 100)
+    return JSONResponse({'result': prediccion, 'anterior': predi_ant})
 
 
 if __name__ == '__main__':

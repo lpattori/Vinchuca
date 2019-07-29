@@ -1,43 +1,43 @@
 <html lang='en'>
 <head>
-  <meta charset='utf-8'>
-  <link rel='stylesheet' href='../static/style.css'>
-  <script src='../static/client.js'></script>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='../static/style.css'>
+    <script src='../static/client.js'></script>
 </head>
 <body>
 <div>
-  <div class='center'>
-    <div class='title'>Clasificación de vinchucas
-      <img src="../static/icono_vinchuca.jpg" alt="Vinchuca" style="width:21px;height:32px;">
+    <div class='center'>
+        <div class='title'>Clasificación de vinchucas
+            <img src="../static/icono_vinchuca.jpg" alt="Vinchuca" style="width:21px;height:32px;">
+        </div>
+        <p>
+            Use imágenes de <strong>vinchucas</strong> o <strong>insectos varios</strong>  o  ¡lo que tenga a mano!
+        </p>
+        <p>🦟  🦋  🕷  🐝  🐜  🐞  🦗  🐛</p>
+        <div class='content'>
+            <div class='no-display'>
+                <input id='file-input'
+                       class='no-display'
+                       type='file'
+                       name='file'
+                       accept='image/*'
+                       onchange='showPicked(this)'>
+            </div>
+            <button class='choose-file-button' type='button' onclick='showPicker()'>Seleccione una Imágen</button>
+            <div class='upload-label'>
+                <label id='upload-label'>No se eligió archivo</label>
+            </div>
+            <div>
+                <img id='image-picked' class='no-display' alt='Chosen Image' height='200'>
+            </div>
+            <div class='analyze'>
+                <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analizar</button>
+            </div>
+            <div class='result-label'>
+                <label id='result-label'></label>
+            </div>
+        </div>
     </div>
-    <p>
-      Use imágenes de <strong>vinchucas</strong> o <strong>insectos varios</strong>  o  ¡lo que tenga a mano!
-    </p>
-    <p>🦟  🦋  🕷  🐝  🐜  🐞  🦗  🐛</p>
-    <div class='content'>
-      <div class='no-display'>
-        <input id='file-input'
-               class='no-display'
-               type='file'
-               name='file'
-               accept='image/*'
-               onchange='showPicked(this)'>
-      </div>
-      <button class='choose-file-button' type='button' onclick='showPicker()'>Seleccione una Imágen</button>
-      <div class='upload-label'>
-        <label id='upload-label'>No se eligió archivo</label>
-      </div>
-      <div>
-        <img id='image-picked' class='no-display' alt='Chosen Image' height='200'>
-      </div>
-      <div class='analyze'>
-        <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analizar</button>
-      </div>
-      <div class='result-label'>
-        <label id='result-label'></label>
-      </div>
-    </div>
-  </div>
 </div>
 </body>
 </html>
