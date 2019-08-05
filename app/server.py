@@ -79,5 +79,5 @@ async def analyze(request):
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
-        puerto=sys.argv[2]
+        puerto=int(sys.argv[2])
         uvicorn.run(app=app, host='0.0.0.0', port=puerto, log_level="info")
