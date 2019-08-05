@@ -1,2 +1,2 @@
-* The .pth files should get downloaded here.
-* Don't put your models inside this folder beforehand as these files can be large in size, and we want to keep our cloud deployment as light as possible and ask the app to download whatever file it needs.
+* Los archivos .pkl deben desccargarse aquí.
+* No precargar los modelos en esta carpeta, estos archivos pueden ser muy grandes. La idea es mantener el espacio en la nube lo más chico posible y que la aplicación cargue los modelos a medida que los necesite.
