@@ -11,6 +11,6 @@ COPY app app/
 
 RUN python app/server.py
 
-EXPOSE 5000
+EXPOSE $PORT
 
-CMD ["python", "app/server.py", "serve"]
+CMD ["python", "app/server.py", "serve", "$PORT]
