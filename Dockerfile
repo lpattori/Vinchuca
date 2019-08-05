@@ -13,4 +13,4 @@ RUN python app/server.py
 
 EXPOSE $PORT
 
-CMD ["python", "app/server.py", "serve", "$PORT"]
+CMD ["python", "app/server.py", "serve", $PORT]
