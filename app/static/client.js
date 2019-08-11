@@ -19,6 +19,7 @@ function analyze() {
     if (uploadFiles.length !== 1) alert("Por favor seleccione una imágen para analizar!");
 
     el("analyze-button").innerHTML = "Analizando...";
+    el("result-label").innerHTML = "" ;
     var xhr = new XMLHttpRequest();
     var loc = window.location;
     xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,

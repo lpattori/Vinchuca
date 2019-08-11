@@ -1,6 +1,6 @@
 *.pkl
 *.pth
 .gitignore
-Dockerfile
+#Dockerfile
 Heroku-Docker
 README.md
