@@ -72,8 +72,8 @@ async def analyze(request):
     img = open_image(BytesIO(img_bytes))
     pred_clase, pred_idx, salida = learn.predict(img)
     pred_clase_ant, pred_idx_ant, salida_ant = learn_ant.predict(img)
-    prediccion = "%s, %.2f %% \n" % (pred_clase, salida[pred_idx] * 100)
-    predi_ant =  "%s, %.2f %% \n" % (pred_clase_ant, salida_ant[pred_idx_ant] * 100)
+    prediccion = "%s: %.2f %% \n" % (pred_clase, salida[pred_idx] * 100)
+    predi_ant =  "%s: %.2f %% \n" % (pred_clase_ant, salida_ant[pred_idx_ant] * 100)
     return JSONResponse({'result': prediccion, 'anterior': predi_ant})
 
 
