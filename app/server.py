@@ -69,7 +69,10 @@ async def homepage(request):
 async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
-    img = open_image(BytesIO(img_bytes))
+    img_pil = PIL.Image.open(img_bytes)
+    if max(img_pil) > 322 :
+        img_pil = img_pil.resize(322, resample=PIL.Image.BILINEAR).convert('RGB')
+    img = Image(pil2tensor(img_pil.convert("RGB"), np.float32).div_(255))
     pred_clase, pred_idx, salida = learn.predict(img)
     pred_clase_ant, pred_idx_ant, salida_ant = learn_ant.predict(img)
     prediccion = "%s: %.2f %% \n" % (pred_clase, salida[pred_idx] * 100)
