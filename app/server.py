@@ -69,9 +69,12 @@ async def homepage(request):
 async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
-    img_pil = PIL.Image.open(img_bytes)
-    if max(img_pil) > 322 :
-        img_pil = img_pil.resize(322, resample=PIL.Image.BILINEAR).convert('RGB')
+    img_pil = PIL.Image.open(BytesIO(img_bytes))
+    img_w, img_h = img_pil.size
+    if min(img_w, img_h) > 322 :
+        ratio = 322 / min(img_w, img_h)
+        img_pil = img_pil.resize((int(img_w * ratio), int(img_h * ratio)),
+                                 resample=PIL.Image.BILINEAR).convert('RGB')
     img = Image(pil2tensor(img_pil.convert("RGB"), np.float32).div_(255))
     pred_clase, pred_idx, salida = learn.predict(img)
     pred_clase_ant, pred_idx_ant, salida_ant = learn_ant.predict(img)
