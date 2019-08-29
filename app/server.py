@@ -84,11 +84,11 @@ async def analyze(request):
         img_pil = img_pil.resize((int(img_w * ratio), int(img_h * ratio)),
                                  resample=PIL.Image.BILINEAR).convert('RGB')
     img = Image(pil2tensor(img_pil.convert("RGB"), np.float32).div_(255))
-    prediccion = ''
+    prediccion = {}
     for aprender in lista_learn:
         pred_clase, pred_idx, salida = aprender.learner.predict(img)
-        prediccion += " %s %s: %.2f %% \n" % (aprender.descripcion, pred_clase, salida[pred_idx] * 100)
-    return JSONResponse({'result': prediccion})
+        prediccion[aprender.nombre] = " %s %s: %.2f %% \n" % (aprender.descripcion, pred_clase, salida[pred_idx] * 100)
+    return JSONResponse(prediccion)
 
 
 if __name__ == '__main__':
