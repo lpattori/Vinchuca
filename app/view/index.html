@@ -25,14 +25,16 @@
                        type='file'
                        name='file'
                        accept='image/*'
-                       onchange='showPicked(this)'>
+                       onchange='showPicked(this)'
+                >
             </div>
             <button class='choose-file-button' type='button' onclick='showPicker()'>Seleccione una Imágen</button>
             <div class='upload-label'>
                 <label id='upload-label'>No se eligió archivo</label>
             </div>
             <div>
-                <img id='image-picked' class='no-display' alt='Chosen Image' height='200'>
+                <img id='image-picked' class='no-display' alt='Chosen Image' height='200'
+                     onclick="regresa()">
             </div>
             <div class='analyze'>
                 <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analizar</button>
