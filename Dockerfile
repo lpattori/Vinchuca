@@ -6,11 +6,10 @@ RUN apt-get update && apt-get install -y git python3-dev gcc \
 COPY requirements.txt .
 
 RUN pip install --upgrade -r requirements.txt
-
+COPY server.py server.py
 COPY app app/
 
-RUN python app/server.py
+RUN python server.py load
 
-EXPOSE 5000
-
-CMD python app/server.py serve 5000
+EXPOSE $PORT
+CMD python server.py serve ${PORT:-5000}

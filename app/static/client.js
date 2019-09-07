@@ -95,7 +95,7 @@ function show_heatmap(element, learner, clase, first) {
     xhr.send(string);
 }
 
-function regresa() {
+function restore_image() {
     highlight();
     el("image-picked").src = orig_img ;
 }

@@ -8,7 +8,7 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse, StreamingResponse
 from starlette.staticfiles import StaticFiles
-from app.heatmaps.heatmap import heatmap
+from app.heatmap import heatmap
 
 
 
@@ -25,15 +25,15 @@ csv.register_dialect('no_quotes', delimiter=',',
 csv_file_url = ('https://onedrive.live.com/download?'
                 'cid=27B3CFFF6EE897C2&resid=27B3CFFF6EE897C2%2122311&authkey=AFQ1XNRERUjj8eI')
 csv_file_name = 'parametros.csv'
-path = Path(__file__).parent
+path = Path(__file__).parent / 'app'
 path_model = path / 'models'
 path_img = path / 'static'
 global_img : Image
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-#app.mount('/static', StaticFiles(directory='app/static'))
-app.mount('/static', StaticFiles(directory='static'))
+app.mount('/static', StaticFiles(directory='app/static'))
+#app.mount('/static', StaticFiles(directory='static'))
 
 
 async def download_file(url, dest):
@@ -117,6 +117,6 @@ if __name__ == '__main__':
     if 'serve' in sys.argv:
         puerto = int(sys.argv[2])
         uvicorn.run(app=app, host='0.0.0.0', port=puerto, log_level="info")
-    else:
+    elif 'load' not in sys.argv:
         uvicorn.run(app=app, host='0.0.0.0', port=5000, log_level="info")
 
