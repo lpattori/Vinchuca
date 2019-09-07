@@ -11,4 +11,5 @@ COPY app app/
 RUN python app/server.py
 
 EXPOSE $PORT
+
 CMD python app/server.py serve $PORT
