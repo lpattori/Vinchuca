@@ -2,18 +2,27 @@ from fastai.vision import *
 from fastai.callbacks.hooks import *
 from torchvision import transforms
 
+def scale_down (img_pil, pixel: int):
+    img_w, img_h = img_pil.size
+    if min(img_w, img_h) > pixel:
+        ratio = pixel / min(img_w, img_h)
+        img_pil = img_pil.resize((int(img_w * ratio), int(img_h * ratio)),
+                                 resample=PIL.Image.BILINEAR).convert('RGB')
+    return Image(pil2tensor(img_pil.convert("RGB"), np.float32).div_(255))
 
-def hooked_backward(m, img, cat):
+
+
+def hooked_backward(m , img: Image.data, cat: int):
     with hook_output(m[0]) as hook_a:
         with hook_output(m[0], grad=True) as hook_g:
             preds = m(img)
             preds[0, cat].backward()
-    return hook_a,hook_g
+    return hook_a, hook_g
 
 
-def heatmap(learner, img, pred_idx, first):
+def heatmap(learner: Learner, img: Image, pred_idx: int, first: bool) -> PIL.Image.Image:
     m = learner.model.eval();
-    hook_a,hook_g = hooked_backward(m, img.data[None], int(pred_idx))
+    hook_a, hook_g = hooked_backward(m, img.data[None], pred_idx)
 
     if first:
         acts = hook_a.stored[0].cpu()

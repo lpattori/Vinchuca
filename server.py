@@ -8,7 +8,7 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse, StreamingResponse
 from starlette.staticfiles import StaticFiles
-from app.heatmap import heatmap
+from app.heatmap import heatmap, scale_down
 
 
 
@@ -84,12 +84,7 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img_pil = PIL.Image.open(BytesIO(img_bytes))
-    img_w, img_h = img_pil.size
-    if min(img_w, img_h) > 322:
-        ratio = 322 / min(img_w, img_h)
-        img_pil = img_pil.resize((int(img_w * ratio), int(img_h * ratio)),
-                                 resample=PIL.Image.BILINEAR).convert('RGB')
-    global_img = Image(pil2tensor(img_pil.convert("RGB"), np.float32).div_(255))
+    global_img = scale_down(img_pil, 322)
     prediction = []
     for aprender in lista_learn:
         pred_clase, pred_idx, certezas = aprender.learner.predict(global_img)

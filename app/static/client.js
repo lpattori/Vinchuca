@@ -62,7 +62,7 @@ function show_heatmap(element, learner, clase, first) {
     var xhr = new XMLHttpRequest();
     var loc = window.location;
     var respuesta ;
-    if (element.dataset.src) {
+    if (element.dataset.src != null) {
         highlight(element);
         var img = document.querySelector( "#image-picked" );
         img.src = element.dataset.src;
@@ -107,7 +107,7 @@ function highlight(element) {
       buttonClicked.style.background = "white";
       buttonClicked.style.color = "black";
   }
-  if (element) {
+  if (element != null) {
       buttonClicked = element;
       buttonClicked.style.background = "red";
       buttonClicked.style.color = "white";
